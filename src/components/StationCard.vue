@@ -1,19 +1,20 @@
 <script setup lang="ts">
-import {computed, ref, watch} from "vue";
+import {computed, type PropType} from "vue";
 import blueBaseStation from '../assets/blue-base-station.svg'
 import greyBaseStation from '../assets/grey-base-station.svg'
 import greyHeadset from '../assets/grey-headset.svg'
 import blueHeadset from '../assets/blue-headset.svg'
 import greyController from '../assets/grey-controller.svg'
 import blueController from '../assets/blue-controller.svg'
+import type {Station} from "@/types/Station";
 
 const props = defineProps({
   station: {
-    type: Object,
+    type: Object as PropType<Station>,
     required: true
   },
   now: {
-    type: Date,
+    type: Number,
     required: true
   }
 })

@@ -1,0 +1,23 @@
+export type Station = {
+    baseStationsActive: number,
+    baseStationsTotal: number,
+    id: number,
+    ipAddress: string,
+    isStationUtf8: boolean,
+    latestUpdate: string,
+    ledRingId: number,
+    leftControllerBattery: number,
+    leftControllerTracking: boolean,
+    macAddress: string,
+    name: string,
+    openVRHeadsetTracking: string,
+    rightControllerBattery: number,
+    rightControllerTracking: boolean,
+    room: string,
+    state: string,
+    status: string,
+    gameName: string,
+    thirdPartyHeadsetTracking: boolean,
+    volume: number,
+    versionCode: string
+}

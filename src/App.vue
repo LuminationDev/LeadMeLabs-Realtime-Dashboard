@@ -7,6 +7,7 @@ import type { User } from 'firebase/auth'
 import {computed, ref} from "vue";
 import type { Ref } from 'vue'
 import StationCard from "@/components/StationCard.vue";
+import type {Station} from "@/types/Station";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC_Dx2fpTHRmU4WaUg1hUYn2O9C4m76Bhg",
@@ -58,7 +59,14 @@ function login() {
 }
 
 
-const data = ref(null)
+type LabsData = {
+  [labName: string]: StationList
+}
+type StationList = {
+  [stationId: number]: Station
+}
+
+const data: Ref<LabsData | null> = ref(null)
 
 const now = ref(Date.now())
 
