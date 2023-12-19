@@ -1,6 +1,6 @@
 # leadmelabs-realtime-dashboard
 
-This template should help get you started developing with Vue 3 in Vite.
+To deploy: git subtree push --prefix dist origin github-pages from main branch
 
 ## Recommended IDE Setup
 
