@@ -1,97 +1,38 @@
 <script setup lang="ts">
-import { initializeApp } from 'firebase/app'
-import { getDatabase, ref as firebaseRef, onValue } from 'firebase/database'
-import type { Database } from 'firebase/database'
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-import type { User } from 'firebase/auth'
-import {computed, ref} from "vue";
-import type { Ref } from 'vue'
-import StationCard from "@/components/StationCard.vue";
-import type {Station} from "@/types/Station";
+import { useRouter } from 'vue-router';
+import { useStateStore } from "@/store/stateStore";
+import NavBar from "@/components/NavBar.vue";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyC_Dx2fpTHRmU4WaUg1hUYn2O9C4m76Bhg",
-  authDomain: "leadme-labs.firebaseapp.com",
-  databaseURL: "https://leadme-labs-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "leadme-labs",
-  storageBucket: "leadme-labs.appspot.com",
-  messagingSenderId: "676443233497",
-  appId: "1:676443233497:web:006cb9cec48d3ba53972c8",
-  measurementId: "G-8NZCSW9ZNB"
-};
-const app = initializeApp(firebaseConfig)
+const stateStore = useStateStore();
+const router = useRouter();
 
-const email = ref("")
-const password = ref("")
+// Initialise the firebase auth listener
+stateStore.initializeAuth();
 
-const loggedIn = computed(() => {
-  return !!(user.value && user.value.email)
-})
-
-const user: Ref<User|null> = ref(null);
-var database: Database|null = null;
-
-const auth = getAuth()
-auth.onAuthStateChanged(() => {
-  user.value = auth.currentUser
-  if (user.value) {
-    setupConnection()
-  }
-})
-
-function setupConnection() {
-  if (database) {
+router.beforeEach((to, from, next) => {
+  // Check if the route exists
+  const resolved = router.resolve(to.path);
+  if (resolved.matched.length === 0) {
+    // Route does not exist, redirect to welcome page
+    next('/');
     return;
   }
-  database = getDatabase()
-  const dataFirebaseRef = firebaseRef(database, 'lab_realtime_data')
 
-  onValue(dataFirebaseRef, (snapshot) => {
-    data.value = snapshot.val()
-  })
-}
-
-function login() {
-  signInWithEmailAndPassword(auth, email.value, password.value)
-      .then((userCredential) => {
-        setupConnection()
-      })
-}
-
-
-type LabsData = {
-  [labName: string]: StationList
-}
-type StationList = {
-  [stationId: number]: Station
-}
-
-const data: Ref<LabsData | null> = ref(null)
-
-const now = ref(Date.now())
-
-setInterval(() => {
-  now.value = Date.now()
-}, 1000)
-
+  // Check if the route requires authentication
+  if (to.meta.requiresAuth && !stateStore.loggedIn) {
+    // If user is not logged in and route requires authentication, redirect to welcome page
+    next('/');
+  } else {
+    // Proceed with navigation
+    next();
+  }
+});
 </script>
 
 <template>
   <div>
-    <div v-if="!loggedIn" class="flex flex-col">
-      <label for="email">Email</label>
-      <input id="email" v-model="email" class="border-2 border-black" />
-      <label for="password">Password</label>
-      <input id="password" v-model="password" type="password" class="border-2 border-black"/>
-      <button @click="login" class="bg-gray-300">Login</button>
-    </div>
-    <div v-else-if="loggedIn && data" class="w-screen h-screen flex flex-col overflow-hidden p-10">
-      <div v-for="(lab, labName) in data" :key="labName">
-        {{ labName }}
-        <div class="flex flex-row last-child:mr-0 overflow-x-scroll">
-          <StationCard class="mr-2" v-for="(station, stationId) in lab" :station="station" :key="'1' + labName + '-' + stationId" :now="now" />
-        </div>
-      </div>
-    </div>
+    <NavBar/>
+
+    <router-view/>
   </div>
 </template>
