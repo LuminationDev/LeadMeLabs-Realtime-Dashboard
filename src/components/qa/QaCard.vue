@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { PropType, computed } from "vue";
-import { Check } from "@/types/QaCheck";
+import { computed } from "vue";
+import type { PropType } from "vue";
+import type { Check } from "@/types/QaCheck";
 
 const props = defineProps({
   checkId: {
-    type: String,
+    type: [String, Number],
     required: true
   },
   check: {

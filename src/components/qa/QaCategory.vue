@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { PropType, ref, computed } from "vue";
-import {Category, Check} from "@/types/QaCheck";
+import { ref, computed } from "vue";
+import type { PropType } from "vue";
+import type { Category, Check } from "@/types/QaCheck";
 import QaCard from "@/components/qa/QaCard.vue";
 
 const props = defineProps({
   categoryId: {
-    type: String,
+    type: [String, Number],
     required: true
   },
   category: {

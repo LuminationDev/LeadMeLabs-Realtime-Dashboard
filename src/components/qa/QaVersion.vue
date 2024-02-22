@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { PropType, ref } from "vue";
-import { Version } from "@/types/QaCheck";
+import { ref } from "vue";
+import type { PropType } from "vue";
+import type { Version } from "@/types/QaCheck";
 import QaCard from "@/components/qa/QaDevice.vue";
 
 defineProps({
   versionId: {
-    type: String,
+    type: [String, Number],
     required: true
   },
   version: {

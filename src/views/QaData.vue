@@ -13,7 +13,7 @@ const filteredData = computed(() => {
     return data.value;
   } else {
     return Object.fromEntries(
-        Object.entries(data.value)
+        Object.entries(data.value || {})
             .filter(([labName]) => labName.toLowerCase().includes(query))
     );
   }
