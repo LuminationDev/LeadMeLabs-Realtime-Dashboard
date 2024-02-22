@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, PropType, ref } from "vue";
-import type { Device } from "@/types/QaCheck.ts";
+import { computed, ref } from "vue";
+import type { PropType } from "vue";
+import type { Device, Category, Check } from "@/types/QaCheck.ts";
 import QaCategory from "@/components/qa/QaCategory.vue";
 
 const props = defineProps({
@@ -28,7 +29,7 @@ const deviceName = computed(() => {
 
 // Compute filtered categories based on search query and selected status
 const filteredCategories = computed(() => {
-  let filtered: Category = {};
+  let filtered: { [key: string]: Category } = {};
 
   // Filtering based on search query and selected status
   for (const categoryId in props.device) {
@@ -49,7 +50,7 @@ const filteredCategories = computed(() => {
     }
   }
 
-  return filtered;
+  return filtered as unknown as { [key: string]: Category };
 });
 
 // Compute the overall status of the filtered categories
@@ -60,7 +61,7 @@ const overallCategoryStatus = computed(() => {
 
   for (const categoryId in filteredCategories.value) {
     for (const checkId in filteredCategories.value[categoryId]) {
-      const check = filteredCategories.value[categoryId][checkId];
+      const check: Check = filteredCategories.value[categoryId][checkId];
       if (check._passedStatus === 'failed') {
         hasFailed = true;
       } else if (check._passedStatus === 'warning') {

@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { PropType, ref } from "vue";
-import { Lab } from "@/types/QaCheck";
+import { ref } from "vue";
+import type { PropType } from "vue";
+import type { Lab } from "@/types/QaCheck";
 import QaVersion from "@/components/qa/QaVersion.vue";
 
 defineProps({
   labName: {
-    type: String,
+    type: [String, Number],
     required: true
   },
   lab: {
