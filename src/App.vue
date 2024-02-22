@@ -14,14 +14,14 @@ router.beforeEach((to, from, next) => {
   const resolved = router.resolve(to.path);
   if (resolved.matched.length === 0) {
     // Route does not exist, redirect to welcome page
-    next('/');
+    next('/LeadMeLabs-Realtime-Dashboard/');
     return;
   }
 
   // Check if the route requires authentication
   if (to.meta.requiresAuth && !stateStore.loggedIn) {
     // If user is not logged in and route requires authentication, redirect to welcome page
-    next('/');
+    next('/LeadMeLabs-Realtime-Dashboard/');
   } else {
     // Proceed with navigation
     next();

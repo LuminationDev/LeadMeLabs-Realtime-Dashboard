@@ -4,16 +4,16 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         {
-            path: '/',
+            path: '/LeadMeLabs-Realtime-Dashboard/',
             component: () => import('../views/TheWelcome.vue'),
         },
         {
-            path: '/labdata',
+            path: '/LeadMeLabs-Realtime-Dashboard/labdata',
             component: () => import('../views/LabData.vue'),
             meta: { requiresAuth: true },
         },
         {
-            path: '/qadata',
+            path: '/LeadMeLabs-Realtime-Dashboard/qadata',
             component: () => import('../views/QaData.vue'),
             meta: { requiresAuth: true },
         },
