@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type { PropType } from "vue";
-import type { Version } from "@/types/QaCheck";
+import type { Version } from "@/interfaces/QaCheck.ts";
 import QaCard from "@/components/qa/QaDevice.vue";
 
 defineProps({
