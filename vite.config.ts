@@ -7,7 +7,7 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   base: "/LeadMeLabs-Realtime-Dashboard/",
   plugins: [
-    vue(),
+    vue({ defineModel: true }),
   ],
   resolve: {
     alias: {

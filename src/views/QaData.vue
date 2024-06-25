@@ -2,6 +2,7 @@
 import { computed, ref } from "vue";
 import { useStateStore } from "@/store/stateStore.ts";
 import QaLab from "@/components/qa/QaLab.vue";
+import SearchBar from "@/components/SearchBar.vue";
 
 const stateStore = useStateStore();
 const searchQuery = ref('');
@@ -22,8 +23,7 @@ const filteredData = computed(() => {
 
 <template>
   <div class="w-full h-full flex flex-col overflow-hidden p-6">
-    <!-- Search Input -->
-    <input type="text" v-model="searchQuery" placeholder="Search by lab name..." class="w-full px-4 py-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:border-gray-800">
+    <SearchBar v-model:search-query="searchQuery" place-holder="Search by lab name..."/>
 
     <!-- Filtered Labs -->
     <QaLab v-for="(lab, labName) in filteredData" :labName="labName" :lab="lab" :key="labName"/>

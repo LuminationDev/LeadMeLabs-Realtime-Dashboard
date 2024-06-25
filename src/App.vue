@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { useStateStore } from "@/store/stateStore";
-import NavBar from "@/components/NavBar.vue";
+import NavBar from "@/components/navigation/NavBar.vue";
 
 const stateStore = useStateStore();
 const router = useRouter();

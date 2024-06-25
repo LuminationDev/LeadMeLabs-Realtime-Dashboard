@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import type { PropType } from "vue";
-import type { Category, Check } from "@/types/QaCheck";
+import type { Category, Check } from "@/interfaces/QaCheck.ts";
 import QaCard from "@/components/qa/QaCard.vue";
 
 const props = defineProps({
